@@ -8,7 +8,7 @@ export const SITE = {
 
 export const CONTACTS = {
   telegram: '@Rodionov_go',
-  telegramUrl: 'https://t.me/Rodionov_go',
+  telegramUrl: 'https://telegram.me/Rodionov_go',
   email: 'rodionov.golang@gmail.com',
   phone: '+7 (989) 523-67-21',
   phoneRaw: '+79895236721',

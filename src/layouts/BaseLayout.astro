@@ -1,0 +1,57 @@
+---
+import '../styles/global.css';
+import { SITE } from '../config';
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="ru" class="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title ?? SITE.title}</title>
+    <meta name="description" content={description ?? SITE.description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={SITE.url} />
+    <meta property="og:title" content={title ?? SITE.title} />
+    <meta property="og:description" content={description ?? SITE.description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={SITE.url} />
+  </head>
+  <body class="min-h-screen antialiased">
+    <slot />
+
+    <script is:inline>
+      (function () {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', () => {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+        );
+        document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el));
+      });
+    </script>
+  </body>
+</html>

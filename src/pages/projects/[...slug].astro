@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { CONTACTS } from '../../config';
+import { CONTACTS, withBase } from '../../config';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -20,7 +20,7 @@ const { Content } = await project.render();
   <div class="min-h-screen">
     <div class="mx-auto max-w-4xl px-6 py-24 sm:py-32">
       <a
-        href="/#portfolio"
+        href={withBase('/#portfolio')}
         class="mb-8 inline-flex items-center gap-1.5 text-sm text-gray-400 transition-colors hover:text-accent-500"
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
@@ -29,7 +29,7 @@ const { Content } = await project.render();
 
       {image && (
         <div class="mb-10 overflow-hidden rounded-2xl">
-          <img src={image} alt={title} class="w-full object-cover" />
+          <img src={withBase(image)} alt={title} class="w-full object-cover" />
         </div>
       )}
 

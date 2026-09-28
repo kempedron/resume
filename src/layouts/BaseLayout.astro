@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { SITE } from '../config';
+import { SITE, withBase } from '../config';
 
 export interface Props {
   title?: string;
@@ -15,7 +15,7 @@ const { title, description } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
     <title>{title ?? SITE.title}</title>
     <meta name="description" content={description ?? SITE.description} />
     <meta name="robots" content="index, follow" />

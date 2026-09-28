@@ -52,3 +52,15 @@ export const SERVICES = [
     icon: '📊',
   },
 ];
+
+export function withBase(path?: string): string {
+  if (!path) return import.meta.env.BASE_URL;
+  if (/^(?:[a-z]+:)?\/\//i.test(path) || path.startsWith('#') || path.startsWith('mailto:') || path.startsWith('tel:')) {
+    return path;
+  }
+  const base = import.meta.env.BASE_URL.endsWith('/')
+    ? import.meta.env.BASE_URL
+    : `${import.meta.env.BASE_URL}/`;
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+  return `${base}${cleanPath}`;
+}
